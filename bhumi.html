@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhumi - Society of Geography</title>
+    <meta name="description" content="Bhumi - A collective of geographers, cartographers, explorers, and students.">
+    <meta name="theme-color" content="#141d13">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // ===================================================
+        // ✏️ SITE_CONFIG — Saari Settings Yahan Badlein
+        // ===================================================
+        const SITE_CONFIG = {
+            // --- Branding ---
+            name: "Bhumi",
+            tagline: "Society of Geography",
+            heroTitle: "Discover the World.",
+            heroTitleHighlight: "Map the Future.",
+            heroDescription: "A collective of geographers, cartographers, explorers, and students dedicated to understanding the spatial complexities of our planet.",
+            copyright: "© 2026 Bhumi - Society of Geography. All rights reserved.",
+            heroImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=80",
+
+            // ✏️ CORE MEMBERS — Sirf ye log content create/edit/delete kar sakte hain
+            // Apna email yahan add karein core member banne ke liye
+            coreMembers: [
+                "yash@admin.com",
+                "karan@admin.com",
+                "saral@admin.com",
+            ],
+
+            // ✏️ DEFAULT ADMIN ACCOUNTS (Pehli baar load hone par auto-create honge)
+            defaultAdmins: [
+                { name: "Yash Haldankar", email: "yash@admin.com", password: "admin123", bio: "Founder & Lead Geographer", interest: "Cartography & GIS" },
+                { name: "Karan Mehta", email: "karan@admin.com", password: "admin123", bio: "Co-Founder & Field Expedition Lead", interest: "Physical Geography" },
+                { name: "Saral Verma", email: "saral@admin.com", password: "admin123", bio: "Co-Founder & GIS Research Head", interest: "Urban Geography" },
+            ],
+
+            // ✏️ Navigation Links
+            navLinks: [
+                { label: "Home", page: "home", icon: "home" },
+                { label: "Blogs", page: "blogs", icon: "file-text" },
+                { label: "Quizzes", page: "quizzes", icon: "brain" },
+                { label: "Polls", page: "polls", icon: "bar-chart-3" },
+                { label: "Daily Challenge", page: "daily", icon: "trophy" },
+                { label: "Gallery", page: "gallery", icon: "image" },
+                { label: "Events", page: "events", icon: "calendar" },
+                { label: "Resources", page: "resources", icon: "book-open" },
+                { label: "Members", page: "members", icon: "users" },
+                { label: "About", page: "about", icon: "info" },
+            ],
+
+            // ✏️ Blog Categories
+            blogCategories: [
+                "Physical Geography", "Cartography & GIS", "Climate Change",
+                "Urban Planning", "Geopolitics", "Exploration & Travel",
+                "Oceanography", "Cultural Geography", "Geology", "General",
+            ],
+
+            // ✏️ Member Interest Options
+            interests: [
+                "Cartography & GIS", "Physical Geography", "Urban Geography",
+                "Climate Science", "Oceanography", "Geology", "Geopolitics",
+                "Student / Enthusiast",
+            ],
+
+            // ✏️ Pillars of the Society
+            pillars: [
+                { icon: "map", title: "Modern Cartography & GIS", description: "Harnessing spatial data, satellite imagery, and modern GIS to visualize our evolving world." },
+                { icon: "trees", title: "Physical & Climate Geography", description: "Investigating geomorphology, climate dynamics, ecosystems, and natural resource stewardship." },
+                { icon: "users", title: "Human & Urban Geography", description: "Analyzing urban growth, migration patterns, cultural landscapes, and sustainable environments." },
+                { icon: "anchor", title: "Oceanography & Hydrology", description: "Studying ocean currents, marine ecosystems, freshwater systems, and rising sea levels." },
+                { icon: "mountain", title: "Geology & Geomorphology", description: "Exploring tectonic activity, rock formations, soil science, and Earth's surface forces." },
+                { icon: "satellite-dish", title: "Remote Sensing & Spatial Tech", description: "Leveraging satellite technology, LiDAR, drone mapping, and AI for geographical research." }
+            ],
+
+            // ✏️ Gallery Images
+            galleryImages: [
+                { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80", caption: "Alpine Mountain Range" },
+                { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80", caption: "Valley Sunset Expedition" },
+                { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80", caption: "Forest Canopy Study" },
+                { url: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=800&q=80", caption: "Waterfall Hydrology" },
+                { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80", caption: "Fog Valley Research" },
+                { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80", caption: "Tropical Rainforest Survey" },
+                { url: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80", caption: "Sunlight Through Canopy" },
+                { url: "https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?auto=format&fit=crop&w=800&q=80", caption: "Northern Lake Mapping" }
+            ],
+
+            // ✏️ About Page
+            aboutTitle: "About Bhumi",
+            aboutContent: `Bhumi - Society of Geography was founded in 2026 with a singular vision: to foster a deep understanding of the Earth's physical and human landscapes.\n\nWe bring together students, researchers, educators, and explorers who share a passion for geographical sciences.\n\nOur society organizes field expeditions, lecture series, workshops on GIS and remote sensing, and publishes research papers on contemporary geographical challenges.\n\nLed by our core members Yash Haldankar, Karan Mehta, and Saral Verma, Bhumi is committed to advancing earth literacy and building a community of passionate geographers.\n\nWhether you're a seasoned geographer or a curious student, our doors are open. Join us in mapping the future of our planet.`,
+
+            // ✏️ Social Media Links
+            socials: [
+                { icon: "twitter", url: "#", label: "Twitter" },
+                { icon: "instagram", url: "#", label: "Instagram" },
+                { icon: "youtube", url: "#", label: "YouTube" },
+                { icon: "globe", url: "#", label: "Website" }
+            ],
+
+            // ✏️ Quick Facts
+            quickFacts: [
+                { label: "Founded", value: "2026", icon: "calendar" },
+                { label: "Location", value: "India", icon: "map-pin" },
+                { label: "Focus", value: "Earth Sciences", icon: "globe-2" },
+                { label: "Open To", value: "Everyone", icon: "heart" }
+            ],
+
+            // ✏️ Announcements Ticker
+            announcements: [
+                "🌍 Bhumi welcomes all geography enthusiasts!",
+                "📚 GIS Workshop Coming Soon — Free for Members",
+                "🏆 Monthly Quiz Competition — Win Geography Books!",
+                "🗺️ New Cartography Course Starting Soon",
+                "📸 Submit Your Field Photos for the Annual Gallery"
+            ],
+
+            // ✏️ Testimonials (Updated names)
+            testimonials: [
+                { name: "Prof. Kanchan Singh", role: "Geomorphologist", text: "Bhumi has been instrumental in connecting geography enthusiasts across the country. The workshops are world-class.", avatar: "K" },
+                { name: "Prof. Anis Bhagwan", role: "GIS Analyst", text: "The quizzes and daily challenges keep me sharp. I've learned more here than in any textbook.", avatar: "A" },
+                { name: "Prof. Mohit Sir", role: "Geography Faculty", text: "As a geography professor, this platform gave students a community and a voice. The blogs are inspiring!", avatar: "M" }
+            ],
+
+            // ✏️ Member Roles
+            roles: {
+                core: { label: "Core Member", color: "bg-amber-500", permissions: ["create", "edit", "delete", "manage_members", "set_daily", "manage_events", "manage_resources", "manage_gallery", "approve_content"] },
+                member: { label: "Member", color: "bg-emerald-500", permissions: ["view", "comment", "like", "vote", "attempt_quiz"] },
+                guest: { label: "Guest", color: "bg-slate-400", permissions: ["view"] }
+            }
+        };
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { heading: ['Cinzel','serif'], sans: ['Plus Jakarta Sans','sans-serif'] },
+                    colors: {
+                        earth: { 50:'#f6f7f4',100:'#e9ece3',200:'#d1d7c7',300:'#b3bda5',500:'#5a7356',600:'#4a6046',700:'#3a4f37',800:'#233221',900:'#141d13' },
+                        accent: { 50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .page{display:none}.page.active{display:block}.modal-overlay{display:none}.modal-overlay.active{display:flex}
+        .fade-in{animation:fadeIn .35s ease-out}@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        .toast-anim{animation:toastSlide .4s ease,toastFade .4s ease 2.8s forwards}
+        @keyframes toastSlide{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes toastFade{to{opacity:0;transform:translateX(40px)}}
+        ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#f6f7f4}::-webkit-scrollbar-thumb{background:#5a7356;border-radius:8px}
+        .ticker-wrap{overflow:hidden;white-space:nowrap}.ticker-content{display:inline-block;animation:ticker 35s linear infinite}
+        @keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+        .lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);align-items:center;justify-content:center}.lightbox.active{display:flex}
+        .poll-bar{transition:width .6s ease}
+        .avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;text-transform:uppercase}
+        .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+        .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .line-clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .tab-btn{padding:8px 16px;border-radius:12px;font-size:13px;font-weight:600;transition:all .2s}
+        .tab-btn.active{background:#141d13;color:white}.tab-btn:not(.active){background:#e9ece3;color:#233221}
+        .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+        .hover-lift{transition:transform .2s,box-shadow .2s}.hover-lift:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.1)}
+        .glass{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
+        @media print{nav,footer,.no-print{display:none!important}.page{display:block!important}}
+    </style>
+</head>
+
+<body class="bg-earth-50 text-slate-800 font-sans antialiased">
+
+    <!-- Toast -->
+    <div id="toast-container" class="fixed top-5 right-5 z-[200] space-y-2"></div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/80 hover:text-white z-10"><i data-lucide="x" class="w-8 h-8"></i></button>
+        <button onclick="event.stopPropagation();lightboxNav(-1)" class="absolute left-6 text-white/80 hover:text-white z-10"><i data-lucide="chevron-left" class="w-10 h-10"></i></button>
+        <button onclick="event.stopPropagation();lightboxNav(1)" class="absolute right-6 text-white/80 hover:text-white z-10"><i data-lucide="chevron-right" class="w-10 h-10"></i></button>
+        <div class="text-center" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" class="max-h-[80vh] max-w-[90vw] rounded-xl shadow-2xl">
+            <p id="lightbox-caption" class="text-white/80 mt-4 text-sm font-medium"></p>
+            <p id="lightbox-counter" class="text-white/40 text-xs mt-1"></p>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal-overlay fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 relative fade-in max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('auth-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="text-center mb-6">
+                <i data-lucide="compass" class="w-10 h-10 text-accent-600 mx-auto mb-2"></i>
+                <h2 id="auth-title" class="font-heading text-2xl font-bold text-earth-900">Welcome Back</h2>
+                <p id="auth-subtitle" class="text-slate-500 text-sm mt-1">Login to Bhumi</p>
+            </div>
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Email</label>
+                <input type="email" id="login-email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-accent-500/40 text-sm"></div>
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Password</label>
+                <input type="password" id="login-pass" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-accent-500/40 text-sm"></div>
+                <p id="login-error" class="text-rose-500 text-xs font-medium hidden"></p>
+                <button type="submit" class="w-full py-3 rounded-xl bg-earth-900 hover:bg-earth-800 text-white font-semibold text-sm">Login</button>
+                <p class="text-center text-sm text-slate-500">New here? <button type="button" onclick="toggleAuth('signup')" class="text-accent-600 font-semibold hover:underline">Create Account</button></p>
+            </form>
+            <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4 hidden">
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">First Name</label>
+                    <input type="text" id="signup-fname" required placeholder="Your Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm"></div>
+                    <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Last Name</label>
+                    <input type="text" id="signup-lname" required placeholder="Last Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm"></div>
+                </div>
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Email</label>
+                <input type="email" id="signup-email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm"></div>
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Password (min 6)</label>
+                <input type="password" id="signup-pass" required minlength="6" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm"></div>
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Bio (optional)</label>
+                <textarea id="signup-bio" rows="2" placeholder="About yourself..." class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm resize-none"></textarea></div>
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Interest</label>
+                <select id="signup-interest" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white"></select></div>
+                <p id="signup-error" class="text-rose-500 text-xs font-medium hidden"></p>
+                <button type="submit" class="w-full py-3 rounded-xl bg-accent-600 hover:bg-accent-500 text-white font-semibold text-sm">Create Account</button>
+                <p class="text-center text-sm text-slate-500">Already a member? <button type="button" onclick="toggleAuth('login')" class="text-accent-600 font-semibold hover:underline">Login</button></p>
+            </form>
+            <form id="edit-profile-form" onsubmit="handleEditProfile(event)" class="space-y-4 hidden">
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">First Name</label>
+                    <input type="text" id="edit-fname" required class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm"></div>
+                    <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Last Name</label>
+                    <input type="text" id="edit-lname" required class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm"></div>
+                </div>
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Bio</label>
+                <textarea id="edit-bio" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm resize-none"></textarea></div>
+                <div><label class="block text-xs font-semibold text-slate-600 uppercase mb-1.5">Interest</label>
+                <select id="edit-interest" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white"></select></div>
+                <div class="flex gap-3">
+                    <button type="submit" class="flex-1 py-3 rounded-xl bg-earth-900 text-white font-semibold text-sm">Save</button>
+                    <button type="button" onclick="closeModal('auth-modal')" class="flex-1 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirm-modal" class="modal-overlay fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center fade-in">
+            <div class="w-14 h-14 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="alert-triangle" class="w-7 h-7"></i></div>
+            <h3 class="font-heading text-lg font-bold text-earth-900 mb-2" id="confirm-title">Are you sure?</h3>
+            <p class="text-slate-500 text-sm mb-6" id="confirm-msg">This cannot be undone.</p>
+            <div class="flex gap-3">
+                <button onclick="closeModal('confirm-modal')" class="flex-1 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button>
+                <button id="confirm-action-btn" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-semibold text-sm">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-earth-900/95 backdrop-blur-md text-white border-b border-earth-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+            <a href="#" onclick="showPage('home')" class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <i data-lucide="compass" class="w-6 h-6 sm:w-8 sm:h-8 text-accent-500"></i>
+                <div class="leading-tight">
+                    <span class="block font-heading text-sm sm:text-lg font-bold tracking-wider uppercase" id="nav-site-name"></span>
+                    <span class="text-[10px] sm:text-xs text-earth-200 uppercase tracking-widest hidden sm:block" id="nav-tagline"></span>
+                </div>
+            </a>
+            <div class="hidden xl:flex items-center gap-4 text-sm font-medium" id="desktop-nav"></div>
+            <button onclick="toggleMobileMenu()" class="xl:hidden text-white p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden xl:hidden bg-earth-800 border-t border-earth-700 px-6 py-4 space-y-1 text-sm max-h-[70vh] overflow-y-auto"></div>
+    </nav>
+
+    <!-- ========== HOME ========== -->
+    <div id="page-home" class="page active">
+        <div class="bg-accent-600 text-white py-2 ticker-wrap no-print"><div class="ticker-content" id="ticker-content"></div></div>
+        <header class="relative min-h-[85vh] flex items-center justify-center text-center text-white px-6 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-earth-900 via-earth-900/50 to-earth-900/30 z-10"></div>
+            <img id="hero-img" src="" alt="Hero" class="absolute inset-0 w-full h-full object-cover">
+            <div class="relative z-20 max-w-3xl space-y-6 fade-in">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-accent-400 text-xs font-semibold uppercase tracking-widest"><i data-lucide="globe-2" class="w-4 h-4"></i> Advancing Earth Literacy</span>
+                <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight"><span id="hero-title"></span><br><span class="text-accent-400" id="hero-highlight"></span></h1>
+                <p class="text-lg text-slate-200 font-light max-w-2xl mx-auto leading-relaxed" id="hero-desc"></p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <button onclick="requireAuth(()=>showPage('blogs'))" class="w-full sm:w-auto px-8 py-4 rounded-full bg-accent-600 hover:bg-accent-500 font-semibold shadow-lg">Become a Member</button>
+                    <button onclick="showPage('blogs')" class="w-full sm:w-auto px-8 py-4 rounded-full glass hover:bg-white/20 font-semibold">Explore Content</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Core Members Showcase -->
+        <section class="py-16 bg-earth-900 text-white">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-10">
+                    <span class="text-accent-400 text-xs font-bold tracking-widest uppercase">Leadership</span>
+                    <h2 class="font-heading text-3xl font-bold mt-2">Core Members</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="text-center p-6 rounded-2xl glass hover-lift">
+                        <div class="avatar bg-amber-500 text-white text-2xl w-20 h-20 mx-auto mb-3">Y</div>
+                        <h4 class="font-heading text-lg font-bold">Yash Haldankar</h4>
+                        <p class="text-accent-400 text-xs font-semibold mt-1">Founder & Lead Geographer</p>
+                        <span class="badge bg-amber-500/20 text-amber-400 mt-2">Core Member</span>
+                    </div>
+                    <div class="text-center p-6 rounded-2xl glass hover-lift">
+                        <div class="avatar bg-blue-500 text-white text-2xl w-20 h-20 mx-auto mb-3">K</div>
+                        <h4 class="font-heading text-lg font-bold">Karan Mehta</h4>
+                        <p class="text-accent-400 text-xs font-semibold mt-1">Co-Founder & Expedition Lead</p>
+                        <span class="badge bg-amber-500/20 text-amber-400 mt-2">Core Member</span>
+                    </div>
+                    <div class="text-center p-6 rounded-2xl glass hover-lift">
+                        <div class="avatar bg-emerald-500 text-white text-2xl w-20 h-20 mx-auto mb-3">S</div>
+                        <h4 class="font-heading text-lg font-bold">Saral Verma</h4>
+                        <p class="text-accent-400 text-xs font-semibold mt-1">Co-Founder & GIS Research Head</p>
+                        <span class="badge bg-amber-500/20 text-amber-400 mt-2">Core Member</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Role Info -->
+        <section class="py-4 bg-earth-800 text-white no-print">
+            <div class="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-center gap-6 text-xs">
+                <div class="flex items-center gap-2"><span class="status-dot bg-amber-500"></span>Core Members — Create & Manage</div>
+                <div class="flex items-center gap-2"><span class="status-dot bg-emerald-500"></span>Members — View, Comment, Like, Vote</div>
+                <div class="flex items-center gap-2"><span class="status-dot bg-slate-400"></span>Guests — Browse Content</div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="py-14 bg-earth-900 text-white">
+            <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+                <div><p class="font-heading text-3xl sm:text-4xl font-bold text-accent-400" id="stat-members">0</p><p class="text-slate-400 text-xs sm:text-sm mt-1">Members</p></div>
+                <div><p class="font-heading text-3xl sm:text-4xl font-bold text-accent-400" id="stat-blogs">0</p><p class="text-slate-400 text-xs sm:text-sm mt-1">Blogs</p></div>
+                <div><p class="font-heading text-3xl sm:text-4xl font-bold text-accent-400" id="stat-quizzes">0</p><p class="text-slate-400 text-xs sm:text-sm mt-1">Quizzes</p></div>
+                <div><p class="font-heading text-3xl sm:text-4xl font-bold text-accent-400" id="stat-polls">0</p><p class="text-slate-400 text-xs sm:text-sm mt-1">Polls</p></div>
+                <div><p class="font-heading text-3xl sm:text-4xl font-bold text-accent-400" id="stat-events">0</p><p class="text-slate-400 text-xs sm:text-sm mt-1">Events</p></div>
+            </div>
+        </section>
+
+        <!-- Pillars -->
+        <section class="py-20 max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14"><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Our Focus</span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-2">Pillars of Bhumi</h2></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="pillars-grid"></div>
+        </section>
+
+        <!-- Latest -->
+        <section class="py-16 bg-white border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex items-end justify-between mb-10"><div><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Fresh Content</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-2">Latest From Core Members</h2></div>
+                <button onclick="showPage('blogs')" class="hidden sm:flex text-sm font-semibold text-earth-800 hover:text-accent-600 items-center gap-1">View All <i data-lucide="arrow-right" class="w-4 h-4"></i></button></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="latest-content"></div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-16 bg-earth-100/50">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-12"><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Voices</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-2">What People Say About Bhumi</h2></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="testimonials-grid"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========== BLOGS ========== -->
+    <div id="page-blogs" class="page">
+        <div class="max-w-5xl mx-auto px-6 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
+                <div><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Community</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Bhumi Blogs</h2></div>
+                <button id="btn-new-blog" onclick="toggleForm('blog-form')" class="hidden px-5 py-2.5 rounded-full bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Write Blog</button>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 mb-8">
+                <div class="relative flex-1"><i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="blog-search" oninput="renderBlogs()" placeholder="Search blogs..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 text-sm"></div>
+                <select id="blog-filter" onchange="renderBlogs()" class="px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white"><option value="">All</option></select>
+            </div>
+            <div id="blog-form" class="hidden bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-10 fade-in">
+                <h3 class="font-heading text-xl font-bold text-earth-900 mb-4">📝 New Blog <span class="badge bg-amber-100 text-amber-700">Core Only</span></h3>
+                <form onsubmit="submitBlog(event)" class="space-y-4">
+                    <input type="text" id="blog-title" required placeholder="Blog Title" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold">
+                    <select id="blog-category" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white"></select>
+                    <input type="text" id="blog-image" placeholder="Cover Image URL (optional)" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                    <textarea id="blog-content" required rows="10" placeholder="Write your blog..." class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm leading-relaxed resize-y"></textarea>
+                    <div class="flex gap-3"><button type="submit" class="px-6 py-3 rounded-xl bg-earth-900 text-white font-semibold text-sm">Publish</button>
+                    <button type="button" onclick="toggleForm('blog-form')" class="px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button></div>
+                </form>
+            </div>
+            <div id="blog-list" class="space-y-6"></div>
+            <div id="blog-empty" class="text-center py-16 text-slate-400 hidden"><i data-lucide="file-text" class="w-12 h-12 mx-auto mb-3 opacity-40"></i><p>No blogs yet.</p></div>
+        </div>
+    </div>
+
+    <!-- ========== QUIZZES ========== -->
+    <div id="page-quizzes" class="page">
+        <div class="max-w-5xl mx-auto px-6 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                <div><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Knowledge</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Bhumi Quizzes</h2></div>
+                <button id="btn-new-quiz" onclick="toggleForm('quiz-form')" class="hidden px-5 py-2.5 rounded-full bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Create Quiz</button>
+            </div>
+            <div id="quiz-form" class="hidden bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-10 fade-in">
+                <h3 class="font-heading text-xl font-bold text-earth-900 mb-4">🧠 New Quiz <span class="badge bg-amber-100 text-amber-700">Core Only</span></h3>
+                <form onsubmit="submitQuiz(event)" class="space-y-4">
+                    <input type="text" id="quiz-question" required placeholder="Question" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold">
+                    <textarea id="quiz-explanation" rows="2" placeholder="Explanation (after answering)" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm resize-none"></textarea>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="quiz-opt1" required placeholder="Option A" class="px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                        <input type="text" id="quiz-opt2" required placeholder="Option B" class="px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                        <input type="text" id="quiz-opt3" required placeholder="Option C" class="px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                        <input type="text" id="quiz-opt4" required placeholder="Option D" class="px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <select id="quiz-correct" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white">
+                        <option value="0">Correct: A</option><option value="1">Correct: B</option><option value="2">Correct: C</option><option value="3">Correct: D</option></select>
+                    <div class="flex gap-3"><button type="submit" class="px-6 py-3 rounded-xl bg-earth-900 text-white font-semibold text-sm">Publish</button>
+                    <button type="button" onclick="toggleForm('quiz-form')" class="px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button></div>
+                </form>
+            </div>
+            <div id="quiz-list" class="space-y-6"></div>
+            <div id="quiz-empty" class="text-center py-16 text-slate-400 hidden"><i data-lucide="brain" class="w-12 h-12 mx-auto mb-3 opacity-40"></i><p>No quizzes yet.</p></div>
+        </div>
+    </div>
+
+    <!-- ========== POLLS ========== -->
+    <div id="page-polls" class="page">
+        <div class="max-w-5xl mx-auto px-6 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                <div><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Voice</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Bhumi Polls</h2></div>
+                <button id="btn-new-poll" onclick="toggleForm('poll-form')" class="hidden px-5 py-2.5 rounded-full bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Create Poll</button>
+            </div>
+            <div id="poll-form" class="hidden bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-10 fade-in">
+                <h3 class="font-heading text-xl font-bold text-earth-900 mb-4">📊 New Poll <span class="badge bg-amber-100 text-amber-700">Core Only</span></h3>
+                <form onsubmit="submitPoll(event)" class="space-y-4">
+                    <input type="text" id="poll-question" required placeholder="Poll Question" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold">
+                    <div id="poll-options-container" class="space-y-3">
+                        <input type="text" class="poll-opt-input w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" required placeholder="Option 1">
+                        <input type="text" class="poll-opt-input w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" required placeholder="Option 2">
+                    </div>
+                    <button type="button" onclick="addPollOption()" class="text-accent-600 text-sm font-semibold flex items-center gap-1"><i data-lucide="plus-circle" class="w-4 h-4"></i> Add Option</button>
+                    <div class="flex gap-3"><button type="submit" class="px-6 py-3 rounded-xl bg-earth-900 text-white font-semibold text-sm">Publish</button>
+                    <button type="button" onclick="toggleForm('poll-form')" class="px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button></div>
+                </form>
+            </div>
+            <div id="poll-list" class="space-y-6"></div>
+            <div id="poll-empty" class="text-center py-16 text-slate-400 hidden"><i data-lucide="bar-chart-3" class="w-12 h-12 mx-auto mb-3 opacity-40"></i><p>No polls yet.</p></div>
+        </div>
+    </div>
+
+    <!-- ========== DAILY ========== -->
+    <div id="page-daily" class="page">
+        <div class="max-w-4xl mx-auto px-6 py-12">
+            <div class="text-center mb-10"><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Daily</span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Today's Challenge</h2>
+            <p class="text-slate-500 text-sm mt-2" id="daily-date"></p></div>
+            <div id="daily-admin" class="hidden bg-accent-50 border-2 border-accent-300 p-6 rounded-2xl mb-10 fade-in">
+                <h3 class="font-heading text-lg font-bold text-accent-800 mb-3 flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i> Set Challenge <span class="badge bg-amber-100 text-amber-700">Core Only</span></h3>
+                <form onsubmit="setDailyChallenge(event)" class="space-y-3">
+                    <input type="text" id="daily-q" required placeholder="Question" class="w-full px-4 py-3 rounded-xl border border-accent-300 text-sm bg-white">
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="text" id="daily-a" required placeholder="A" class="px-4 py-3 rounded-xl border border-accent-300 text-sm bg-white">
+                        <input type="text" id="daily-b" required placeholder="B" class="px-4 py-3 rounded-xl border border-accent-300 text-sm bg-white">
+                        <input type="text" id="daily-c" required placeholder="C" class="px-4 py-3 rounded-xl border border-accent-300 text-sm bg-white">
+                        <input type="text" id="daily-d" required placeholder="D" class="px-4 py-3 rounded-xl border border-accent-300 text-sm bg-white">
+                    </div>
+                    <select id="daily-correct" class="w-full px-4 py-3 rounded-xl border border-accent-300 text-sm bg-white">
+                        <option value="0">Correct: A</option><option value="1">Correct: B</option><option value="2">Correct: C</option><option value="3">Correct: D</option></select>
+                    <textarea id="daily-explanation" rows="2" placeholder="Explanation (optional)" class="w-full px-4 py-3 rounded-xl border border-accent-300 text-sm bg-white resize-none"></textarea>
+                    <button type="submit" class="px-6 py-3 rounded-xl bg-accent-600 text-white font-semibold text-sm">Set Challenge</button>
+                </form>
+            </div>
+            <div id="daily-display" class="bg-earth-900 text-white p-8 sm:p-12 rounded-3xl text-center">
+                <div class="flex items-center justify-center gap-2 mb-4"><i data-lucide="trophy" class="w-6 h-6 text-accent-400"></i><span class="text-accent-400 text-xs font-bold uppercase tracking-widest">Bhumi Daily</span></div>
+                <p id="daily-question-text" class="text-xl sm:text-2xl font-heading font-bold mb-8">No challenge today.</p>
+                <div id="daily-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto mb-6"></div>
+                <p id="daily-feedback" class="text-sm font-semibold h-6"></p>
+                <p id="daily-explanation-text" class="text-xs text-slate-400 mt-2 hidden"></p>
+                <div id="daily-stats" class="mt-6 pt-4 border-t border-earth-700 text-xs text-slate-400 hidden"><span id="daily-participants">0 participants</span></div>
+            </div>
+            <div class="mt-12"><h3 class="font-heading text-xl font-bold text-earth-900 mb-4">Past Challenges</h3><div id="past-challenges" class="space-y-3"></div></div>
+        </div>
+    </div>
+
+    <!-- ========== GALLERY ========== -->
+    <div id="page-gallery" class="page">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                <div><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Archive</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Bhumi Gallery</h2></div>
+                <button id="btn-add-gallery" onclick="toggleForm('gallery-form')" class="hidden px-5 py-2.5 rounded-full bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Add Image</button>
+            </div>
+            <div id="gallery-form" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-10 fade-in">
+                <form onsubmit="addGalleryImage(event)" class="space-y-3">
+                    <input type="url" id="gallery-url" required placeholder="Image URL" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                    <input type="text" id="gallery-caption" required placeholder="Caption" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                    <div class="flex gap-3"><button type="submit" class="px-6 py-3 rounded-xl bg-earth-900 text-white font-semibold text-sm">Add</button>
+                    <button type="button" onclick="toggleForm('gallery-form')" class="px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button></div>
+                </form>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery-grid"></div>
+        </div>
+    </div>
+
+    <!-- ========== EVENTS ========== -->
+    <div id="page-events" class="page">
+        <div class="max-w-5xl mx-auto px-6 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                <div><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Calendar</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Bhumi Events</h2></div>
+                <button id="btn-new-event" onclick="toggleForm('event-form')" class="hidden px-5 py-2.5 rounded-full bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Add Event</button>
+            </div>
+            <div id="event-form" class="hidden bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-10 fade-in">
+                <form onsubmit="submitEvent(event)" class="space-y-4">
+                    <input type="text" id="event-title" required placeholder="Event Title" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold">
+                    <textarea id="event-desc" required rows="3" placeholder="Description" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm resize-none"></textarea>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <input type="date" id="event-date" required class="px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                        <input type="time" id="event-time" class="px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                        <input type="text" id="event-location" placeholder="Location" class="px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <select id="event-type" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white">
+                        <option>Field Expedition</option><option>Lecture</option><option>Workshop</option><option>Competition</option><option>Social</option></select>
+                    <div class="flex gap-3"><button type="submit" class="px-6 py-3 rounded-xl bg-earth-900 text-white font-semibold text-sm">Publish</button>
+                    <button type="button" onclick="toggleForm('event-form')" class="px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button></div>
+                </form>
+            </div>
+            <div id="event-list" class="space-y-6"></div>
+            <div id="event-empty" class="text-center py-16 text-slate-400 hidden"><i data-lucide="calendar" class="w-12 h-12 mx-auto mb-3 opacity-40"></i><p>No events.</p></div>
+        </div>
+    </div>
+
+    <!-- ========== RESOURCES ========== -->
+    <div id="page-resources" class="page">
+        <div class="max-w-5xl mx-auto px-6 py-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+                <div><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Library</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Bhumi Resources</h2></div>
+                <button id="btn-new-resource" onclick="toggleForm('resource-form')" class="hidden px-5 py-2.5 rounded-full bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Add Resource</button>
+            </div>
+            <div id="resource-form" class="hidden bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-10 fade-in">
+                <form onsubmit="submitResource(event)" class="space-y-4">
+                    <input type="text" id="res-title" required placeholder="Title" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-semibold">
+                    <textarea id="res-desc" required rows="3" placeholder="Description" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm resize-none"></textarea>
+                    <input type="url" id="res-link" required placeholder="Resource URL" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
+                    <select id="res-type" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white">
+                        <option>PDF / Document</option><option>Video</option><option>Article</option><option>Tool / Software</option><option>Dataset</option><option>Book</option></select>
+                    <div class="flex gap-3"><button type="submit" class="px-6 py-3 rounded-xl bg-earth-900 text-white font-semibold text-sm">Publish</button>
+                    <button type="button" onclick="toggleForm('resource-form')" class="px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold text-sm">Cancel</button></div>
+                </form>
+            </div>
+            <div id="resource-list" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></div>
+            <div id="resource-empty" class="text-center py-16 text-slate-400 hidden"><i data-lucide="book-open" class="w-12 h-12 mx-auto mb-3 opacity-40"></i><p>No resources yet.</p></div>
+        </div>
+    </div>
+
+    <!-- ========== MEMBERS (PUBLIC — Visible to Everyone) ========== -->
+    <div id="page-members" class="page">
+        <div class="max-w-5xl mx-auto px-6 py-12">
+            <div class="text-center mb-12"><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Community</span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1">Bhumi Members</h2>
+            <p class="text-slate-500 text-sm mt-2">All registered members of our geography society</p></div>
+            <div class="flex gap-3 justify-center mb-8 flex-wrap" id="member-tabs"></div>
+            <!-- Search Members -->
+            <div class="relative max-w-md mx-auto mb-8">
+                <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="member-search" oninput="renderMembers()" placeholder="Search members..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 text-sm">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="members-grid"></div>
+            <div id="members-empty" class="text-center py-16 text-slate-400 hidden"><i data-lucide="users" class="w-12 h-12 mx-auto mb-3 opacity-40"></i><p>No members found.</p></div>
+        </div>
+    </div>
+
+    <!-- ========== ABOUT ========== -->
+    <div id="page-about" class="page">
+        <div class="max-w-4xl mx-auto px-6 py-12">
+            <div class="text-center mb-12"><span class="text-accent-600 text-sm font-bold tracking-widest uppercase">Who We Are</span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-earth-900 mt-1" id="about-title"></h2></div>
+            <div class="bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-slate-200 mb-8">
+                <p id="about-content" class="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line"></p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="quick-facts"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-earth-900 text-slate-400 py-10 border-t border-earth-800 text-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-2"><i data-lucide="compass" class="w-5 h-5 text-accent-500"></i><span class="font-heading text-base font-bold text-white tracking-wider" id="footer-name"></span></div>
+                <p class="text-xs" id="footer-copyright"></p>
+                <div class="flex gap-4" id="footer-socials"></div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-earth-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <div class="flex flex-wrap gap-4 justify-center" id="footer-links"></div>
+                <p>Built with ❤️ for Geography · Founded 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ENGINE ========== -->
+    <script>
+    // ===== DATABASE =====
+    const DB={
+        _p:'bhumi_',
+        get(k){try{return JSON.parse(localStorage.getItem(this._p+k))}catch{return null}},
+        set(k,v){localStorage.setItem(this._p+k,JSON.stringify(v))},
+        getUsers(){return this.get('users')||[]},setUsers(u){this.set('users',u)},
+        getCurrentUser(){return this.get('currentUser')},setCurrentUser(u){this.set('currentUser',u)},
+        getBlogs(){return this.get('blogs')||[]},setBlogs(b){this.set('blogs',b)},
+        getQuizzes(){return this.get('quizzes')||[]},setQuizzes(q){this.set('quizzes',q)},
+        getPolls(){return this.get('polls')||[]},setPolls(p){this.set('polls',p)},
+        getDaily(){return this.get('daily')},setDaily(d){this.set('daily',d)},
+        getPast(){return this.get('past')||[]},setPast(p){this.set('past',p)},
+        getComments(id){return this.get('c_'+id)||[]},setComments(id,c){this.set('c_'+id,c)},
+        getEvents(){return this.get('events')||[]},setEvents(e){this.set('events',e)},
+        getResources(){return this.get('resources')||[]},setResources(r){this.set('resources',r)},
+        getGallery(){return this.get('gallery')||[]},setGallery(g){this.set('gallery',g)},
+    };
+
+    // ===== HELPERS =====
+    function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+    function timeAgo(d){const s=Math.floor((Date.now()-new Date(d))/1e3);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+    function isCore(u){if(!u)return false;return SITE_CONFIG.coreMembers.includes(u.email.toLowerCase())}
+    function getUserRole(u){if(!u)return'guest';return isCore(u)?'core':'member'}
+
+    // ===== TOAST =====
+    function showToast(msg,type='success'){
+        const c=document.getElementById('toast-container');const cols={success:'bg-emerald-600',error:'bg-rose-600',info:'bg-blue-600',warning:'bg-accent-600'};
+        const icons={success:'check-circle',error:'x-circle',info:'info',warning:'alert-triangle'};
+        const t=document.createElement('div');t.className=`${cols[type]} text-white px-5 py-3 rounded-xl shadow-2xl toast-anim text-sm font-medium flex items-center gap-2 max-w-sm`;
+        t.innerHTML=`<i data-lucide="${icons[type]}" class="w-4 h-4 flex-shrink-0"></i><span>${msg}</span>`;c.appendChild(t);lucide.createIcons();setTimeout(()=>t.remove(),3200);
+    }
+    function confirmAction(title,msg,cb){document.getElementById('confirm-title').textContent=title;document.getElementById('confirm-msg').textContent=msg;document.getElementById('confirm-action-btn').onclick=()=>{closeModal('confirm-modal');cb()};openModal('confirm-modal')}
+
+    // ===== LIGHTBOX =====
+    let lbIdx=0,lbImages=[];
+    function openLightbox(i){lbIdx=i;const img=lbImages[i];document.getElementById('lightbox-img').src=img.url;document.getElementById('lightbox-caption').textContent=img.caption;document.getElementById('lightbox-counter').textContent=`${i+1}/${lbImages.length}`;document.getElementById('lightbox').classList.add('active')}
+    function closeLightbox(){document.getElementById('lightbox').classList.remove('active')}
+    function lightboxNav(d){lbIdx=(lbIdx+d+lbImages.length)%lbImages.length;openLightbox(lbIdx)}
+
+    // ===== AUTH =====
+    function openModal(id){document.getElementById(id).classList.add('active');lucide.createIcons()}
+    function closeModal(id){document.getElementById(id).classList.remove('active')}
+    function toggleAuth(m){
+        document.getElementById('login-form').classList.toggle('hidden',m!=='login');document.getElementById('signup-form').classList.toggle('hidden',m!=='signup');document.getElementById('edit-profile-form').classList.toggle('hidden',m!=='edit');
+        const t={login:['Welcome Back','Login to Bhumi'],signup:['Join Bhumi','Create your free account'],edit:['Edit Profile','Update your info']};
+        document.getElementById('auth-title').textContent=t[m][0];document.getElementById('auth-subtitle').textContent=t[m][1];
+        document.getElementById('login-error').classList.add('hidden');document.getElementById('signup-error').classList.add('hidden');
+    }
+    function requireAuth(cb){DB.getCurrentUser()?cb():(openModal('auth-modal'),toggleAuth('signup'))}
+
+    function handleSignup(e){
+        e.preventDefault();const fn=document.getElementById('signup-fname').value.trim(),ln=document.getElementById('signup-lname').value.trim(),
+        em=document.getElementById('signup-email').value.trim().toLowerCase(),pw=document.getElementById('signup-pass').value,
+        bio=document.getElementById('signup-bio').value.trim(),interest=document.getElementById('signup-interest').value;
+        const users=DB.getUsers();if(users.find(u=>u.email===em)){document.getElementById('signup-error').textContent='Email already registered!';document.getElementById('signup-error').classList.remove('hidden');return}
+        const cols=['bg-rose-500','bg-blue-500','bg-emerald-500','bg-purple-500','bg-accent-600','bg-cyan-500','bg-pink-500','bg-indigo-500','bg-teal-500','bg-orange-500'];
+        const u={id:Date.now().toString(),name:fn+' '+ln,email:em,pass:pw,bio,interest,avatarColor:cols[Math.floor(Math.random()*cols.length)],joined:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}),joinedRaw:new Date().toISOString()};
+        users.push(u);DB.setUsers(users);DB.setCurrentUser(u);closeModal('auth-modal');updateNav();renderStats();
+        showToast(`Welcome to Bhumi${isCore(u)?' as Core Member':''},${fn}! 🎉`);e.target.reset();
+    }
+
+    function handleLogin(e){
+        e.preventDefault();const em=document.getElementById('login-email').value.trim().toLowerCase(),pw=document.getElementById('login-pass').value;
+        const u=DB.getUsers().find(x=>x.email===em&&x.pass===pw);
+        if(!u){document.getElementById('login-error').textContent='Invalid email or password.';document.getElementById('login-error').classList.remove('hidden');return}
+        DB.setCurrentUser(u);closeModal('auth-modal');updateNav();showToast(`Welcome back, ${u.name.split(' ')[0]}!`);e.target.reset();
+    }
+
+    function openEditProfile(){const u=DB.getCurrentUser();if(!u)return;const[fn,...r]=u.name.split(' ');document.getElementById('edit-fname').value=fn;document.getElementById('edit-lname').value=r.join(' ');document.getElementById('edit-bio').value=u.bio||'';document.getElementById('edit-interest').value=u.interest||'';openModal('auth-modal');toggleAuth('edit')}
+
+    function handleEditProfile(e){
+        e.preventDefault();const u=DB.getCurrentUser();if(!u)return;u.name=document.getElementById('edit-fname').value.trim()+' '+document.getElementById('edit-lname').value.trim();
+        u.bio=document.getElementById('edit-bio').value.trim();u.interest=document.getElementById('edit-interest').value;
+        const users=DB.getUsers();const idx=users.findIndex(x=>x.id===u.id);if(idx!==-1)users[idx]=u;DB.setUsers(users);DB.setCurrentUser(u);closeModal('auth-modal');updateNav();showToast('Profile updated!');
+    }
+    function logout(){DB.setCurrentUser(null);updateNav();showPage('home');showToast('Logged out.','info')}
+
+    // ===== NAV =====
+    function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('hidden')}
+    function updateNav(){
+        const u=DB.getCurrentUser();const core=isCore(u);
+        let dH=SITE_CONFIG.navLinks.map(l=>`<a href="#" onclick="showPage('${l.page}')" class="hover:text-accent-400 transition-colors">${l.label}</a>`).join('');
+        if(u){const rb=core?`<span class="badge bg-amber-500 text-white">Core</span>`:`<span class="badge bg-emerald-500 text-white">Member</span>`;
+            dH+=`<div class="flex items-center gap-3 ml-2 pl-4 border-l border-earth-700"><button onclick="openEditProfile()" class="avatar ${u.avatarColor} text-white text-xs" title="Edit Profile">${u.name.charAt(0)}</button><div class="text-xs leading-tight hidden 2xl:block"><p class="font-semibold text-white flex items-center gap-1.5">${esc(u.name.split(' ')[0])} ${rb}</p></div><button onclick="logout()" class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-medium border border-white/10">Logout</button></div>`}
+        else dH+=`<button onclick="openModal('auth-modal');toggleAuth('login')" class="ml-2 px-5 py-2.5 rounded-full bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold shadow-md">Login / Sign Up</button>`;
+        document.getElementById('desktop-nav').innerHTML=dH;
+
+        let mH=SITE_CONFIG.navLinks.map(l=>`<a href="#" onclick="showPage('${l.page}');toggleMobileMenu()" class="flex items-center gap-3 py-2.5 hover:text-accent-400"><i data-lucide="${l.icon}" class="w-4 h-4"></i>${l.label}</a>`).join('');
+        if(u){mH+=`<div class="pt-3 mt-3 border-t border-earth-700 space-y-2"><div class="flex items-center gap-3"><span class="avatar ${u.avatarColor} text-white text-xs">${u.name.charAt(0)}</span><div><p class="font-semibold text-white text-sm">${esc(u.name)}</p><p class="text-accent-400 text-xs">${core?'Core Member':'Member'}</p></div></div><button onclick="openEditProfile();toggleMobileMenu()" class="w-full py-2 text-left text-xs text-accent-400">Edit Profile</button><button onclick="logout();toggleMobileMenu()" class="w-full py-2 rounded-xl bg-white/10 text-center text-sm font-medium">Logout</button></div>`}
+        else mH+=`<button onclick="openModal('auth-modal');toggleAuth('login');toggleMobileMenu()" class="w-full mt-3 py-3 rounded-xl bg-accent-600 text-white font-semibold text-sm">Login / Sign Up</button>`;
+        document.getElementById('mobile-menu').innerHTML=mH;
+        const cd=core?'inline-flex':'none';['btn-new-blog','btn-new-quiz','btn-new-poll','btn-new-event','btn-new-resource','btn-add-gallery'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=cd});
+        const ad=document.getElementById('daily-admin');if(ad)ad.style.display=core?'block':'none';lucide.createIcons();
+    }
+
+    // ===== PAGES =====
+    function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));const t=document.getElementById('page-'+p);if(t)t.classList.add('active');document.getElementById('mobile-menu').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'});const r={home:renderHome,blogs:renderBlogs,quizzes:renderQuizzes,polls:renderPolls,daily:renderDaily,gallery:renderGallery,events:renderEvents,resources:renderResources,members:renderMembers,about:renderAbout};if(r[p])r[p]();lucide.createIcons()}
+    function toggleForm(id){document.getElementById(id).classList.toggle('hidden');lucide.createIcons()}
+
+    // ===== HOME =====
+    function renderHome(){renderStats();renderLatest()}
+    function renderStats(){animC('stat-members',DB.getUsers().length);animC('stat-blogs',DB.getBlogs().length);animC('stat-quizzes',DB.getQuizzes().length);animC('stat-polls',DB.getPolls().length);animC('stat-events',DB.getEvents().length)}
+    function animC(id,t){const el=document.getElementById(id);if(!el)return;let c=0;const s=Math.max(1,Math.ceil(t/25));const i=setInterval(()=>{c+=s;if(c>=t){c=t;clearInterval(i)}el.textContent=c},30)}
+    function renderLatest(){const b=DB.getBlogs().slice(0,3);const el=document.getElementById('latest-content');if(!el)return;if(!b.length){el.innerHTML='<p class="col-span-3 text-center text-slate-400 py-8">No content yet.</p>';return}
+        el.innerHTML=b.map(b=>`<div class="bg-earth-50 p-6 rounded-2xl border border-slate-200 hover-lift cursor-pointer" onclick="showPage('blogs')">${b.image?`<img src="${esc(b.image)}" class="w-full h-40 object-cover rounded-xl mb-4" onerror="this.style.display='none'">`:''}
+        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-earth-200 text-earth-700">${esc(b.category)}</span>
+        <h4 class="font-heading text-lg font-bold text-earth-900 mt-2 line-clamp-2">${esc(b.title)}</h4>
+        <p class="text-slate-500 text-sm mt-2 line-clamp-3">${esc(b.content.substring(0,150))}...</p>
+        <div class="flex items-center gap-2 mt-3 text-xs text-slate-400"><span class="avatar ${b.avatarColor||'bg-slate-400'} text-white text-[8px] w-5 h-5">${b.author.charAt(0)}</span>
+        <span>${esc(b.author)}</span><span>·</span><span>${b.date}</span><span class="badge bg-amber-100 text-amber-700">Core</span></div></div>`).join('')}
+
+    // ===== BLOGS =====
+    function submitBlog(e){e.preventDefault();const u=DB.getCurrentUser();if(!u||!isCore(u)){showToast('Only core members can publish.','error');return}
+        const bl=DB.getBlogs();bl.unshift({id:Date.now().toString(),userId:u.id,author:u.name,avatarColor:u.avatarColor,isCore:true,title:document.getElementById('blog-title').value.trim(),category:document.getElementById('blog-category').value,image:document.getElementById('blog-image').value.trim(),content:document.getElementById('blog-content').value.trim(),date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}),dateRaw:new Date().toISOString(),likes:[]});
+        DB.setBlogs(bl);e.target.reset();toggleForm('blog-form');renderBlogs();showToast('Blog published! 🎉')}
+
+    function renderBlogs(){
+        let bl=DB.getBlogs();const u=DB.getCurrentUser();const core=isCore(u);const search=(document.getElementById('blog-search')?.value||'').toLowerCase();const filter=document.getElementById('blog-filter')?.value||'';
+        if(search)bl=bl.filter(b=>b.title.toLowerCase().includes(search)||b.content.toLowerCase().includes(search)||b.author.toLowerCase().includes(search));
+        if(filter)bl=bl.filter(b=>b.category===filter);const list=document.getElementById('blog-list'),empty=document.getElementById('blog-empty');
+        if(!bl.length){list.innerHTML='';empty.classList.remove('hidden');return}empty.classList.add('hidden');
+        list.innerHTML=bl.map(b=>{const isO=core&&u&&u.id===b.userId;const hasL=u&&Array.isArray(b.likes)&&b.likes.includes(u.id);const lc=Array.isArray(b.likes)?b.likes.length:0;const cm=DB.getComments(b.id);
+            return`<article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden fade-in hover-lift">
+            ${b.image?`<img src="${esc(b.image)}" class="w-full h-52 object-cover" onerror="this.style.display='none'">`:''}
+            <div class="p-6 sm:p-8">
+                <div class="flex items-start justify-between gap-4 mb-3"><div class="space-y-2"><div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-earth-100 text-earth-700">${esc(b.category)}</span>
+                    <span class="badge bg-amber-100 text-amber-700">By Core Member</span></div>
+                    <h3 class="font-heading text-xl sm:text-2xl font-bold text-earth-900">${esc(b.title)}</h3></div>
+                    ${isO?`<button onclick="confirmAction('Delete Blog','This will be permanently deleted.',()=>deleteBlog('${b.id}'))" class="text-rose-400 hover:text-rose-600 text-xs flex items-center gap-1 flex-shrink-0"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`:''}</div>
+                <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-line mb-4">${esc(b.content)}</p>
+                <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-100 pt-4">
+                    <div class="flex items-center gap-3"><span class="avatar ${b.avatarColor||'bg-slate-400'} text-white text-[10px] w-6 h-6">${b.author.charAt(0)}</span><span class="font-medium text-slate-600">${esc(b.author)}</span><span>${b.date}</span>${b.dateRaw?`<span>· ${timeAgo(b.dateRaw)}</span>`:''}</div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="${u?`likeBlog('${b.id}')`:`openModal('auth-modal');toggleAuth('login')`}" class="flex items-center gap-1 ${hasL?'text-rose-500':'hover:text-rose-500'} transition-colors"><i data-lucide="heart" class="w-3.5 h-3.5 ${hasL?'fill-current':''}"></i> ${lc}</button>
+                        <button onclick="toggleComments('${b.id}')" class="flex items-center gap-1 hover:text-blue-500"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> ${cm.length}</button></div></div>
+                <div id="comments-${b.id}" class="hidden mt-4 pt-4 border-t border-slate-100 space-y-3">
+                    <div class="space-y-2 max-h-60 overflow-y-auto">${cm.map(c=>`<div class="flex gap-2 text-xs bg-earth-50 p-3 rounded-xl"><span class="avatar ${c.avatarColor||'bg-slate-400'} text-white text-[8px] w-5 h-5 flex-shrink-0">${c.author.charAt(0)}</span><div><span class="font-semibold text-earth-900">${esc(c.author)} ${c.isCore?'<span class="badge bg-amber-100 text-amber-700 ml-1">Core</span>':''}</span><p class="text-slate-600 mt-0.5">${esc(c.text)}</p></div></div>`).join('')}</div>
+                    ${u?`<form onsubmit="submitComment(event,'${b.id}')" class="flex gap-2"><input type="text" id="ci-${b.id}" required placeholder="Comment..." class="flex-1 px-3 py-2 rounded-lg border border-slate-300 text-xs"><button type="submit" class="px-3 py-2 rounded-lg bg-earth-900 text-white text-xs font-semibold">Post</button></form>`:'<p class="text-xs text-slate-400">Login to comment.</p>'}
+                </div></div></article>`}).join('');lucide.createIcons();
+    }
+    function likeBlog(id){const u=DB.getCurrentUser();if(!u)return;const bl=DB.getBlogs();const b=bl.find(x=>x.id===id);if(!b)return;if(!Array.isArray(b.likes))b.likes=[];const i=b.likes.indexOf(u.id);if(i===-1)b.likes.push(u.id);else b.likes.splice(i,1);DB.setBlogs(bl);renderBlogs()}
+    function deleteBlog(id){DB.setBlogs(DB.getBlogs().filter(b=>b.id!==id));renderBlogs();showToast('Blog deleted.','info')}
+    function toggleComments(id){document.getElementById('comments-'+id).classList.toggle('hidden')}
+    function submitComment(e,pid){e.preventDefault();const u=DB.getCurrentUser();if(!u)return;const inp=document.getElementById('ci-'+pid);const cm=DB.getComments(pid);cm.push({author:u.name,avatarColor:u.avatarColor,isCore:isCore(u),text:inp.value.trim(),time:new Date().toLocaleTimeString()});DB.setComments(pid,cm);inp.value='';renderBlogs();showToast('Comment posted!')}
+
+    // ===== QUIZZES =====
+    function submitQuiz(e){e.preventDefault();const u=DB.getCurrentUser();if(!u||!isCore(u)){showToast('Core only.','error');return}
+        const q=DB.getQuizzes();q.unshift({id:Date.now().toString(),userId:u.id,author:u.name,avatarColor:u.avatarColor,isCore:true,question:document.getElementById('quiz-question').value.trim(),explanation:document.getElementById('quiz-explanation').value.trim(),options:['quiz-opt1','quiz-opt2','quiz-opt3','quiz-opt4'].map(x=>document.getElementById(x).value.trim()),correct:parseInt(document.getElementById('quiz-correct').value),date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}),attempts:0,correctCount:0,answeredBy:[]});
+        DB.setQuizzes(q);e.target.reset();toggleForm('quiz-form');renderQuizzes();showToast('Quiz published! 🧠')}
+
+    function renderQuizzes(){
+        const qs=DB.getQuizzes();const u=DB.getCurrentUser();const core=isCore(u);const list=document.getElementById('quiz-list'),empty=document.getElementById('quiz-empty');
+        if(!qs.length){list.innerHTML='';empty.classList.remove('hidden');return}empty.classList.add('hidden');
+        list.innerHTML=qs.map(q=>{const isO=core&&u&&u.id===q.userId;const acc=q.attempts>0?Math.round(q.correctCount/q.attempts*100):0;const ans=u&&q.answeredBy&&q.answeredBy.includes(u.id);
+            return`<div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 fade-in hover-lift">
+            <div class="flex items-start justify-between gap-4 mb-4"><h3 class="font-heading text-lg font-bold text-earth-900">${esc(q.question)}</h3>
+            <div class="flex items-center gap-2 flex-shrink-0"><span class="badge bg-amber-100 text-amber-700">Core Quiz</span>
+            ${isO?`<button onclick="confirmAction('Delete','Remove quiz?',()=>deleteQuiz('${q.id}'))" class="text-rose-400 hover:text-rose-600"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`:''}</div></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">${q.options.map((o,i)=>{
+                if(ans){const c=i===q.correct;return`<div class="px-4 py-3 rounded-xl border text-sm font-medium ${c?'bg-emerald-100 border-emerald-400 text-emerald-800':'bg-earth-50 border-slate-200 text-slate-500'}">${String.fromCharCode(65+i)}. ${esc(o)} ${c?'✓':''}</div>`}
+                return`<button onclick="answerQuiz('${q.id}',${i},${q.correct},this)" class="quiz-opt-${q.id} text-left px-4 py-3 rounded-xl border border-slate-200 bg-earth-50 hover:bg-earth-100 text-sm font-medium ${!u?'opacity-60 pointer-events-none':''}">${String.fromCharCode(65+i)}. ${esc(o)}</button>`}).join('')}</div>
+            <p id="qfb-${q.id}" class="text-sm font-semibold min-h-[20px] ${ans?'text-slate-500':''}">${ans?'✓ Already answered.':''}</p>
+            <p id="qex-${q.id}" class="text-xs text-slate-500 mt-1 ${ans&&q.explanation?'':'hidden'}">${ans&&q.explanation?'💡 '+esc(q.explanation):''}</p>
+            <div class="flex items-center justify-between text-xs text-slate-400 mt-3 pt-3 border-t border-slate-100">
+            <div class="flex items-center gap-2"><span class="avatar ${q.avatarColor||'bg-slate-400'} text-white text-[10px] w-5 h-5">${q.author.charAt(0)}</span><span>${esc(q.author)} · ${q.date}</span></div>
+            <span>${q.attempts} attempts · ${acc}%</span></div></div>`}).join('');lucide.createIcons();
+    }
+    function answerQuiz(qid,ch,cor,btn){const u=DB.getCurrentUser();if(!u){openModal('auth-modal');toggleAuth('login');return}const qs=DB.getQuizzes();const q=qs.find(x=>x.id===qid);if(!q)return;if(!q.answeredBy)q.answeredBy=[];if(q.answeredBy.includes(u.id))return;q.answeredBy.push(u.id);q.attempts++;if(ch===cor)q.correctCount++;DB.setQuizzes(qs);
+        const ab=document.querySelectorAll(`.quiz-opt-${qid}`);ab.forEach((b,i)=>{b.disabled=true;b.classList.add('pointer-events-none','opacity-70');if(i===cor)b.classList.add('bg-emerald-100','border-emerald-400','text-emerald-800','opacity-100')});
+        if(ch!==cor)btn.classList.add('bg-rose-100','border-rose-400','text-rose-800','opacity-100');
+        const fb=document.getElementById('qfb-'+qid);fb.textContent=ch===cor?'✓ Correct!':'✗ Wrong!';fb.className=`text-sm font-semibold ${ch===cor?'text-emerald-600':'text-rose-600'}`;
+        if(q.explanation){const ex=document.getElementById('qex-'+qid);ex.textContent='💡 '+q.explanation;ex.classList.remove('hidden')}}
+    function deleteQuiz(id){DB.setQuizzes(DB.getQuizzes().filter(q=>q.id!==id));renderQuizzes();showToast('Deleted.','info')}
+
+    // ===== POLLS =====
+    function addPollOption(){const c=document.getElementById('poll-options-container');if(c.children.length>=6)return showToast('Max 6.','warning');const i=document.createElement('input');i.type='text';i.placeholder='Option '+(c.children.length+1);i.className='poll-opt-input w-full px-4 py-3 rounded-xl border border-slate-300 text-sm';c.appendChild(i)}
+    function submitPoll(e){e.preventDefault();const u=DB.getCurrentUser();if(!u||!isCore(u)){showToast('Core only.','error');return}
+        const opts=Array.from(document.querySelectorAll('.poll-opt-input')).map(i=>i.value.trim()).filter(v=>v);if(opts.length<2)return showToast('Need 2+ options.','error');
+        const p=DB.getPolls();p.unshift({id:Date.now().toString(),userId:u.id,author:u.name,avatarColor:u.avatarColor,isCore:true,question:document.getElementById('poll-question').value.trim(),options:opts.map(o=>({text:o,votes:0})),voters:[],date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})});
+        DB.setPolls(p);document.getElementById('poll-options-container').innerHTML=`<input type="text" class="poll-opt-input w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" required placeholder="Option 1"><input type="text" class="poll-opt-input w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" required placeholder="Option 2">`;
+        document.getElementById('poll-question').value='';toggleForm('poll-form');renderPolls();showToast('Poll published! 📊')}
+
+    function renderPolls(){
+        const ps=DB.getPolls();const u=DB.getCurrentUser();const core=isCore(u);const list=document.getElementById('poll-list'),empty=document.getElementById('poll-empty');
+        if(!ps.length){list.innerHTML='';empty.classList.remove('hidden');return}empty.classList.add('hidden');
+        list.innerHTML=ps.map(p=>{const isO=core&&u&&u.id===p.userId;const hv=u&&p.voters.includes(u.id);const tot=p.options.reduce((s,o)=>s+o.votes,0);
+            return`<div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 fade-in hover-lift">
+            <div class="flex items-start justify-between gap-4 mb-4"><h3 class="font-heading text-lg font-bold text-earth-900">${esc(p.question)}</h3>
+            <div class="flex items-center gap-2 flex-shrink-0"><span class="badge bg-amber-100 text-amber-700">Core Poll</span>
+            ${isO?`<button onclick="confirmAction('Delete','Remove poll?',()=>deletePoll('${p.id}'))" class="text-rose-400 hover:text-rose-600"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`:''}</div></div>
+            <div class="space-y-2 mb-4">${p.options.map((o,i)=>{const pct=tot>0?Math.round(o.votes/tot*100):0;
+                if(hv)return`<div class="relative px-4 py-3 rounded-xl border border-slate-200 bg-earth-50 text-sm overflow-hidden"><div class="absolute inset-0 bg-accent-100/60 poll-bar" style="width:${pct}%"></div><span class="relative z-10 font-medium">${esc(o.text)}</span><span class="relative z-10 float-right font-bold text-accent-700">${pct}% (${o.votes})</span></div>`;
+                return`<button onclick="votePoll('${p.id}',${i})" class="w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-earth-50 hover:bg-accent-50 hover:border-accent-300 text-sm font-medium ${!u?'opacity-60 pointer-events-none':''}">${esc(o.text)}</button>`}).join('')}</div>
+            <div class="flex items-center justify-between text-xs text-slate-400"><div class="flex items-center gap-2"><span class="avatar ${p.avatarColor||'bg-slate-400'} text-white text-[10px] w-5 h-5">${p.author.charAt(0)}</span><span>${tot} vote${tot!==1?'s':''} · ${esc(p.author)}</span></div><span>${p.date}</span></div></div>`}).join('');lucide.createIcons();
+    }
+    function votePoll(pid,i){const u=DB.getCurrentUser();if(!u){openModal('auth-modal');toggleAuth('login');return}const ps=DB.getPolls();const p=ps.find(x=>x.id===pid);if(!p||p.voters.includes(u.id))return;p.options[i].votes++;p.voters.push(u.id);DB.setPolls(ps);renderPolls();showToast('Vote recorded! ✓')}
+    function deletePoll(id){DB.setPolls(DB.getPolls().filter(p=>p.id!==id));renderPolls();showToast('Deleted.','info')}
+
+    // ===== DAILY =====
+    function setDailyChallenge(e){e.preventDefault();const u=DB.getCurrentUser();if(!u||!isCore(u))return;const old=DB.getDaily();if(old&&old.date!==new Date().toDateString()){const p=DB.getPast();p.unshift(old);if(p.length>30)p.pop();DB.setPast(p)}
+        DB.setDaily({question:document.getElementById('daily-q').value.trim(),options:['daily-a','daily-b','daily-c','daily-d'].map(x=>document.getElementById(x).value.trim()),correct:parseInt(document.getElementById('daily-correct').value),explanation:document.getElementById('daily-explanation').value.trim(),date:new Date().toDateString(),voters:[],correctVoters:0});e.target.reset();renderDaily();showToast("Challenge set! 🏆")}
+
+    function renderDaily(){
+        const d=DB.getDaily();const u=DB.getCurrentUser();document.getElementById('daily-date').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+        const qE=document.getElementById('daily-question-text'),oE=document.getElementById('daily-options'),fE=document.getElementById('daily-feedback'),xE=document.getElementById('daily-explanation-text'),sE=document.getElementById('daily-stats');
+        if(!d||d.date!==new Date().toDateString()){qE.textContent="No challenge today.";oE.innerHTML='';fE.textContent='';xE.classList.add('hidden');sE.classList.add('hidden');renderPast();return}
+        qE.textContent=d.question;const vd=u&&d.voters&&d.voters.includes(u.id);
+        if(vd){oE.innerHTML=d.options.map((o,i)=>`<div class="py-3 px-4 rounded-xl text-sm font-medium ${i===d.correct?'bg-emerald-600 border-emerald-500 text-white':'bg-earth-800 border-earth-700 text-slate-300'} border">${String.fromCharCode(65+i)}. ${esc(o)} ${i===d.correct?'✓':''}</div>`).join('');fE.textContent="✓ Already answered!";fE.className='text-sm font-semibold h-6 text-accent-400'}
+        else{oE.innerHTML=d.options.map((o,i)=>`<button onclick="answerDaily(${i})" class="daily-opt bg-earth-800 hover:bg-earth-700 border border-earth-600/30 py-3 px-4 rounded-xl text-sm font-medium ${!u?'opacity-60 pointer-events-none':''}">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join('');fE.textContent=''}
+        if(d.explanation&&vd){xE.textContent='💡 '+d.explanation;xE.classList.remove('hidden')}else xE.classList.add('hidden');
+        sE.classList.remove('hidden');document.getElementById('daily-participants').textContent=`${d.voters?d.voters.length:0} participants`;renderPast();lucide.createIcons();
+    }
+    function answerDaily(c){const u=DB.getCurrentUser();if(!u){openModal('auth-modal');toggleAuth('login');return}const d=DB.getDaily();if(!d||d.voters.includes(u.id))return;d.voters.push(u.id);if(c===d.correct)d.correctVoters++;DB.setDaily(d);
+        document.querySelectorAll('.daily-opt').forEach((b,i)=>{b.disabled=true;b.classList.add('pointer-events-none');if(i===d.correct)b.classList.add('bg-emerald-600','border-emerald-500');if(i===c&&c!==d.correct)b.classList.add('bg-rose-600','border-rose-500')});
+        const f=document.getElementById('daily-feedback');f.textContent=c===d.correct?'✓ Correct!':'✗ Wrong!';f.className=`text-sm font-semibold h-6 ${c===d.correct?'text-emerald-400':'text-rose-400'}`;
+        if(d.explanation){document.getElementById('daily-explanation-text').textContent='💡 '+d.explanation;document.getElementById('daily-explanation-text').classList.remove('hidden')}
+        document.getElementById('daily-participants').textContent=`${d.voters.length} participants`}
+    function renderPast(){const p=DB.getPast();const el=document.getElementById('past-challenges');if(!el)return;if(!p.length){el.innerHTML='<p class="text-sm text-slate-400">No past challenges.</p>';return}
+        el.innerHTML=p.slice(0,10).map(x=>`<div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between"><div><p class="font-medium text-sm text-earth-900">${esc(x.question)}</p><p class="text-xs text-slate-400 mt-1">Answer: ${esc(x.options[x.correct])} · ${x.voters?x.voters.length:0} participants</p></div><span class="text-xs text-slate-400">${x.date}</span></div>`).join('')}
+
+    // ===== GALLERY =====
+    function addGalleryImage(e){e.preventDefault();const u=DB.getCurrentUser();if(!u||!isCore(u))return;const g=DB.getGallery();g.unshift({url:document.getElementById('gallery-url').value.trim(),caption:document.getElementById('gallery-caption').value.trim(),by:u.name});DB.setGallery(g);e.target.reset();toggleForm('gallery-form');renderGallery();showToast('Image added! 🖼️')}
+    function renderGallery(){const cg=DB.getGallery();const all=[...cg,...SITE_CONFIG.galleryImages];lbImages=all;const core=isCore(DB.getCurrentUser());
+        document.getElementById('gallery-grid').innerHTML=all.map((img,i)=>`<div class="cursor-pointer group relative overflow-hidden rounded-2xl hover-lift" onclick="openLightbox(${i})"><img src="${img.url}" alt="${img.caption}" class="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.parentElement.style.display='none'"><div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4"><p class="text-white text-sm font-medium">${img.caption}</p></div>${core&&i<cg.length?`<button onclick="event.stopPropagation();confirmAction('Delete','Remove image?',()=>{const g=DB.getGallery();g.splice(${i},1);DB.setGallery(g);renderGallery();showToast('Removed.','info')})" class="absolute top-2 right-2 bg-rose-600/80 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100"><i data-lucide="trash-2" class="w-3 h-3"></i></button>`:''}</div>`).join('');lucide.createIcons()}
+
+    // ===== EVENTS =====
+    function submitEvent(e){e.preventDefault();const u=DB.getCurrentUser();if(!u||!isCore(u)){showToast('Core only.','error');return}
+        const ev=DB.getEvents();ev.unshift({id:Date.now().toString(),userId:u.id,author:u.name,avatarColor:u.avatarColor,title:document.getElementById('event-title').value.trim(),description:document.getElementById('event-desc').value.trim(),date:document.getElementById('event-date').value,time:document.getElementById('event-time').value,location:document.getElementById('event-location').value.trim(),type:document.getElementById('event-type').value,rsvp:[]});
+        DB.setEvents(ev);e.target.reset();toggleForm('event-form');renderEvents();showToast('Event published! 📅')}
+
+    function renderEvents(){
+        const ev=DB.getEvents();const u=DB.getCurrentUser();const core=isCore(u);const list=document.getElementById('event-list'),empty=document.getElementById('event-empty');
+        if(!ev.length){list.innerHTML='';empty.classList.remove('hidden');return}empty.classList.add('hidden');
+        list.innerHTML=ev.map(e=>{const isO=core&&u&&u.id===e.userId;const hr=u&&e.rsvp&&e.rsvp.includes(u.id);const ed=e.date?new Date(e.date):null;const ip=ed&&ed<new Date();
+            return`<div class="flex flex-col sm:flex-row gap-6 p-6 rounded-2xl border ${ip?'border-slate-200 bg-slate-50 opacity-70':'border-slate-200 bg-white'} hover-lift fade-in">
+            <div class="sm:w-28 flex-shrink-0 text-center bg-earth-900 text-white p-4 rounded-xl flex flex-col justify-center items-center">${ed?`<span class="text-xs uppercase font-semibold text-accent-400">${ed.toLocaleDateString('en',{month:'short'})}</span><span class="text-3xl font-bold font-heading">${ed.getDate()}</span><span class="text-xs text-slate-300">${ed.getFullYear()}</span>`:'<span class="text-sm">TBD</span>'}</div>
+            <div class="flex-1 space-y-2"><div class="flex items-center gap-2 flex-wrap"><span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-accent-100 text-accent-800">${esc(e.type)}</span>${ip?'<span class="badge bg-slate-200 text-slate-600">Past</span>':'<span class="badge bg-emerald-100 text-emerald-700">Upcoming</span>'}</div>
+            <h4 class="font-heading text-xl font-bold text-earth-900">${esc(e.title)}</h4><p class="text-slate-600 text-sm">${esc(e.description)}</p>
+            <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 pt-2">${e.location?`<span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i>${esc(e.location)}</span>`:''} ${e.time?`<span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i>${e.time}</span>`:''}<span class="flex items-center gap-1"><i data-lucide="users" class="w-3.5 h-3.5"></i>${e.rsvp?e.rsvp.length:0} attending</span></div>
+            <div class="flex items-center gap-3 pt-2">${!ip&&u?`<button onclick="rsvpEvent('${e.id}')" class="px-4 py-2 rounded-lg text-xs font-semibold ${hr?'bg-emerald-100 text-emerald-700 border border-emerald-300':'bg-earth-900 text-white'}">${hr?'✓ Attending':'RSVP'}</button>`:''} ${isO?`<button onclick="confirmAction('Delete','Remove event?',()=>deleteEvent('${e.id}'))" class="text-rose-400 hover:text-rose-600 text-xs"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`:''}</div></div></div>`}).join('');lucide.createIcons();
+    }
+    function rsvpEvent(id){const u=DB.getCurrentUser();if(!u)return;const ev=DB.getEvents();const e=ev.find(x=>x.id===id);if(!e)return;if(!e.rsvp)e.rsvp=[];const i=e.rsvp.indexOf(u.id);if(i===-1){e.rsvp.push(u.id);showToast('RSVP confirmed! 🎉')}else{e.rsvp.splice(i,1);showToast('RSVP cancelled.','info')}DB.setEvents(ev);renderEvents()}
+    function deleteEvent(id){DB.setEvents(DB.getEvents().filter(e=>e.id!==id));renderEvents();showToast('Deleted.','info')}
+
+    // ===== RESOURCES =====
+    function submitResource(e){e.preventDefault();const u=DB.getCurrentUser();if(!u||!isCore(u)){showToast('Core only.','error');return}
+        const r=DB.getResources();r.unshift({id:Date.now().toString(),userId:u.id,author:u.name,avatarColor:u.avatarColor,title:document.getElementById('res-title').value.trim(),description:document.getElementById('res-desc').value.trim(),link:document.getElementById('res-link').value.trim(),type:document.getElementById('res-type').value,date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})});
+        DB.setResources(r);e.target.reset();toggleForm('resource-form');renderResources();showToast('Resource added! 📚')}
+
+    function renderResources(){
+        const rs=DB.getResources();const core=isCore(DB.getCurrentUser());const u=DB.getCurrentUser();const list=document.getElementById('resource-list'),empty=document.getElementById('resource-empty');
+        if(!rs.length){list.innerHTML='';empty.classList.remove('hidden');return}empty.classList.add('hidden');
+        const ti={'PDF / Document':'file-text',Video:'play-circle',Article:'book-open','Tool / Software':'wrench',Dataset:'database',Book:'book'};
+        list.innerHTML=rs.map(r=>{const isO=core&&u&&u.id===r.userId;
+            return`<div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover-lift fade-in"><div class="flex items-start gap-4"><div class="w-12 h-12 bg-accent-100 text-accent-700 rounded-xl flex items-center justify-center flex-shrink-0"><i data-lucide="${ti[r.type]||'file'}" class="w-6 h-6"></i></div>
+            <div class="flex-1 min-w-0"><div class="flex items-start justify-between gap-2"><h4 class="font-heading text-lg font-bold text-earth-900 line-clamp-2">${esc(r.title)}</h4>${isO?`<button onclick="confirmAction('Delete','Remove?',()=>{DB.setResources(DB.getResources().filter(x=>x.id!=='${r.id}'));renderResources();showToast('Deleted.','info')})" class="text-rose-400 hover:text-rose-600 flex-shrink-0"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`:''}</div>
+            <span class="badge bg-earth-100 text-earth-700 mt-1">${esc(r.type)}</span><p class="text-slate-500 text-sm mt-2 line-clamp-2">${esc(r.description)}</p>
+            <div class="flex items-center justify-between mt-4"><div class="flex items-center gap-2 text-xs text-slate-400"><span class="avatar ${r.avatarColor||'bg-slate-400'} text-white text-[8px] w-5 h-5">${r.author.charAt(0)}</span><span>${esc(r.author)} · ${r.date}</span></div>
+            <a href="${esc(r.link)}" target="_blank" rel="noopener" class="text-xs font-semibold text-accent-600 hover:text-accent-700 flex items-center gap-1"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> Open</a></div></div></div></div>`}).join('');lucide.createIcons();
+    }
+
+    // ===== MEMBERS (Visible to ALL — including guests) =====
+    let memberFilter='all';
+    function renderMembers(){
+        let users=DB.getUsers();const grid=document.getElementById('members-grid'),empty=document.getElementById('members-empty');
+        const search=(document.getElementById('member-search')?.value||'').toLowerCase();
+
+        if(!users.length){grid.innerHTML='';empty.classList.remove('hidden');return}empty.classList.add('hidden');
+
+        // Filter by search
+        if(search)users=users.filter(u=>u.name.toLowerCase().includes(search)||u.email.toLowerCase().includes(search)||(u.interest||'').toLowerCase().includes(search)||(u.bio||'').toLowerCase().includes(search));
+
+        // Tabs
+        const allUsers=DB.getUsers();const coreCount=allUsers.filter(u=>isCore(u)).length;const memCount=allUsers.length-coreCount;
+        document.getElementById('member-tabs').innerHTML=`
+            <button onclick="memberFilter='all';renderMembers()" class="tab-btn ${memberFilter==='all'?'active':''}">All (${allUsers.length})</button>
+            <button onclick="memberFilter='core';renderMembers()" class="tab-btn ${memberFilter==='core'?'active':''}">Core (${coreCount})</button>
+            <button onclick="memberFilter='member';renderMembers()" class="tab-btn ${memberFilter==='member'?'active':''}">Members (${memCount})</button>`;
+
+        if(memberFilter==='core')users=users.filter(u=>isCore(u));
+        if(memberFilter==='member')users=users.filter(u=>!isCore(u));
+
+        if(!users.length){grid.innerHTML='';empty.classList.remove('hidden');return}
+
+        const blogCounts={};DB.getBlogs().forEach(b=>{blogCounts[b.userId]=(blogCounts[b.userId]||0)+1});
+        const quizCounts={};DB.getQuizzes().forEach(q=>{quizCounts[q.userId]=(quizCounts[q.userId]||0)+1});
+
+        grid.innerHTML=users.map(u=>{const role=isCore(u);
+            return`<div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm text-center fade-in hover-lift">
+            <div class="avatar ${u.avatarColor} text-white text-xl w-16 h-16 mx-auto mb-3 relative">${u.name.charAt(0)}${role?'<span class="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center text-[8px]">★</span>':''}</div>
+            <h4 class="font-heading text-lg font-bold text-earth-900">${esc(u.name)}</h4>
+            <div class="mt-1">${role?'<span class="badge bg-amber-100 text-amber-700">Core Member</span>':'<span class="badge bg-emerald-100 text-emerald-700">Member</span>'}</div>
+            <p class="text-accent-600 text-xs font-semibold mt-1">${esc(u.interest||'')}</p>
+            ${u.bio?`<p class="text-slate-500 text-xs mt-2 line-clamp-2">${esc(u.bio)}</p>`:''}
+            <div class="flex items-center justify-center gap-4 mt-4 text-xs text-slate-400">
+                <span class="flex items-center gap-1"><i data-lucide="file-text" class="w-3 h-3"></i>${blogCounts[u.id]||0} blogs</span>
+                <span class="flex items-center gap-1"><i data-lucide="brain" class="w-3 h-3"></i>${quizCounts[u.id]||0} quizzes</span>
+                <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i>${u.joined}</span>
+            </div>
+            <p class="text-[10px] text-slate-300 mt-2">${esc(u.email)}</p>
+            </div>`}).join('');lucide.createIcons();
+    }
+
+    // ===== ABOUT =====
+    function renderAbout(){document.getElementById('about-title').textContent=SITE_CONFIG.aboutTitle;document.getElementById('about-content').textContent=SITE_CONFIG.aboutContent;
+        document.getElementById('quick-facts').innerHTML=SITE_CONFIG.quickFacts.map(f=>`<div class="bg-white p-6 rounded-2xl border border-slate-100 text-center shadow-sm hover-lift"><i data-lucide="${f.icon}" class="w-6 h-6 text-accent-600 mx-auto mb-2"></i><p class="text-accent-600 font-heading text-2xl font-bold">${esc(f.value)}</p><p class="text-slate-500 text-xs mt-1 uppercase tracking-widest">${esc(f.label)}</p></div>`).join('');lucide.createIcons()}
+
+    // ===== INIT =====
+    function initializeSite(){
+        // Create default admin accounts
+        const users=DB.getUsers();
+        SITE_CONFIG.defaultAdmins.forEach(admin=>{
+            if(!users.find(u=>u.email===admin.email)){
+                const cols=['bg-amber-500','bg-blue-500','bg-emerald-500'];
+                const idx=SITE_CONFIG.defaultAdmins.indexOf(admin);
+                users.push({id:'admin_'+idx,name:admin.name,email:admin.email,pass:admin.password,bio:admin.bio,interest:admin.interest,avatarColor:cols[idx]||'bg-amber-500',joined:'1 Jan 2026',joinedRaw:new Date().toISOString()});
+            }
+        });
+        DB.setUsers(users);
+
+        // Populate UI
+        document.getElementById('nav-site-name').textContent=SITE_CONFIG.name;document.getElementById('nav-tagline').textContent=SITE_CONFIG.tagline;
+        document.getElementById('hero-img').src=SITE_CONFIG.heroImage;document.getElementById('hero-title').textContent=SITE_CONFIG.heroTitle;
+        document.getElementById('hero-highlight').textContent=SITE_CONFIG.heroTitleHighlight;document.getElementById('hero-desc').textContent=SITE_CONFIG.heroDescription;
+        document.getElementById('footer-name').textContent=SITE_CONFIG.name;document.getElementById('footer-copyright').textContent=SITE_CONFIG.copyright;
+        document.getElementById('ticker-content').innerHTML=SITE_CONFIG.announcements.map(a=>`<span class="mx-8">${a}</span>`).join('');
+        document.getElementById('footer-socials').innerHTML=SITE_CONFIG.socials.map(s=>`<a href="${s.url}" class="hover:text-white" title="${s.label}"><i data-lucide="${s.icon}" class="w-4 h-4"></i></a>`).join('');
+        document.getElementById('footer-links').innerHTML=SITE_CONFIG.navLinks.map(l=>`<a href="#" onclick="showPage('${l.page}')" class="hover:text-white">${l.label}</a>`).join('');
+        document.getElementById('pillars-grid').innerHTML=SITE_CONFIG.pillars.map(p=>`<div class="bg-white p-8 rounded-2xl shadow-sm hover-lift border border-slate-100"><div class="w-14 h-14 bg-earth-100 text-earth-800 rounded-xl flex items-center justify-center mb-6"><i data-lucide="${p.icon}" class="w-7 h-7"></i></div><h3 class="font-heading text-lg font-bold mb-3 text-earth-900">${p.title}</h3><p class="text-slate-600 text-sm leading-relaxed">${p.description}</p></div>`).join('');
+        document.getElementById('testimonials-grid').innerHTML=SITE_CONFIG.testimonials.map(t=>`<div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover-lift"><i data-lucide="quote" class="w-6 h-6 text-accent-300 mb-3"></i><p class="text-slate-600 text-sm leading-relaxed mb-4">"${t.text}"</p><div class="border-t border-slate-100 pt-3"><p class="font-heading font-bold text-earth-900 text-sm">${t.name}</p><p class="text-slate-400 text-xs">${t.role}</p></div></div>`).join('');
+
+        const pop=(id,items)=>{const el=document.getElementById(id);if(el)el.innerHTML=items.map(i=>`<option>${i}</option>`).join('')};
+        pop('blog-category',SITE_CONFIG.blogCategories);pop('signup-interest',SITE_CONFIG.interests);pop('edit-interest',SITE_CONFIG.interests);
+        const bf=document.getElementById('blog-filter');if(bf)bf.innerHTML='<option value="">All</option>'+SITE_CONFIG.blogCategories.map(c=>`<option>${c}</option>`).join('');
+
+        updateNav();renderHome();lucide.createIcons();
+    }
+
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('auth-modal');closeModal('confirm-modal');closeLightbox()}});
+    document.addEventListener('DOMContentLoaded',initializeSite);
+    </script>
+</body>
+</html>
